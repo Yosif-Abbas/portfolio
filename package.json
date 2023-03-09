@@ -1,0 +1,29 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "description": "Yosif Abbas, a web developer that can build websites",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/youssef12030/portfolio.git"
+  },
+  "keywords": [
+    "portfolio"
+  ],
+  "author": "Yosif Abbas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/youssef12030/portfolio/issues"
+  },
+  "homepage": "https://github.com/youssef12030/portfolio#readme",
+  "dependencies": {
+    "sass": "^1.58.3"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.8.3",
+    "parcel": "^2.8.3"
+  }
+}
