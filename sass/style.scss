@@ -39,10 +39,10 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  transition: background-color 100ms ease;
-  -moz-transition: background-color 100ms ease;
-  -webkit-transition: background-color 100ms ease;
-  -o-transition: background-color 100ms ease;
+  transition: all 100ms ease;
+  -moz-transition: all 100ms ease;
+  -webkit-transition: all 100ms ease;
+  -o-transition: all 100ms ease;
 }
 
 body {
@@ -381,6 +381,9 @@ header,
             line-height: 20px;
           }
         }
+        & .hidden {
+          display: none;
+        }
       }
     }
   }
@@ -419,6 +422,7 @@ header,
   justify-content: space-around;
   align-items: center;
   gap: 4rem;
+  transition: all 100ms ease;
 
   & .links {
     display: flex;
@@ -436,11 +440,12 @@ header,
 
   & .fun-keys {
     color: var(--light);
-    position: relative;
     display: flex;
     justify-content: space-around;
     align-items: center;
     gap: 1rem;
+    position: relative;
+    min-height: 45px;
 
     & .bulb {
       background-color: var(--dark);
@@ -485,6 +490,23 @@ header,
       }
     }
   }
+  & .btn-open {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: var(--dark);
+    color: var(--light);
+    min-height: 45px;
+
+    & .bi-plus {
+      width: 32;
+      height: 32;
+    }
+  }
+}
+
+.hidden {
+  display: none;
 }
 
 // media query for Tablets
@@ -666,6 +688,7 @@ header,
   }
 
   .model-float {
+    display: flex;
     gap: 2rem;
     & .links {
       gap: 1rem;

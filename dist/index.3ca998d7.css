@@ -9,10 +9,10 @@
 
 *, :after, :before {
   box-sizing: border-box;
-  -o-transition: background-color .1s ease;
+  -o-transition: all .1s ease;
   margin: 0;
   padding: 0;
-  transition: background-color .1s;
+  transition: all .1s;
 }
 
 body {
@@ -315,6 +315,10 @@ h1, header, .project_header a {
   line-height: 20px;
 }
 
+.main .projects .wrapper .projects_container .hidden {
+  display: none;
+}
+
 .model-float {
   background: var(--dark);
   z-index: 100;
@@ -324,6 +328,7 @@ h1, header, .project_header a {
   align-items: center;
   gap: 4rem;
   padding: .25rem 1.5rem;
+  transition: all .1s;
   display: flex;
   position: fixed;
   bottom: 0;
@@ -348,6 +353,7 @@ h1, header, .project_header a {
 
 .model-float .fun-keys {
   color: var(--light);
+  min-height: 45px;
   justify-content: space-around;
   align-items: center;
   gap: 1rem;
@@ -389,6 +395,24 @@ h1, header, .project_header a {
 .model-float .fun-keys .btn .bi, .model-float .fun-keys .btn-arrow-up .bi-arrow-up-short {
   width: 32px;
   height: 32px;
+}
+
+.model-float .btn-open {
+  background: var(--dark);
+  color: var(--light);
+  min-height: 45px;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+.model-float .btn-open .bi-plus {
+  width: 32px;
+  height: 32px;
+}
+
+.hidden {
+  display: none;
 }
 
 @media only screen and (max-width: 1050px) {
@@ -533,6 +557,7 @@ h1, header, .project_header a {
 
   .model-float {
     gap: 2rem;
+    display: flex;
   }
 
   .model-float .links {

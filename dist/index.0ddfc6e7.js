@@ -560,6 +560,11 @@ function hmrAccept(bundle, id) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _modeView = require("./views/modeView");
 var _modeViewDefault = parcelHelpers.interopDefault(_modeView);
+var _moveView = require("./views/moveView");
+var _moveViewDefault = parcelHelpers.interopDefault(_moveView);
+var _modelView = require("./views/ModelView");
+var _modelViewDefault = parcelHelpers.interopDefault(_modelView);
+if (module.hot) module.hot.accept();
 const controlMode = function() {
     const root = document.documentElement;
     const darkBackground = getComputedStyle(root).getPropertyValue("--dark-bg");
@@ -571,12 +576,32 @@ const controlMode = function() {
     root.style.setProperty("--light-bg", darkBackground);
     root.style.setProperty("--dark-bg", lightBackground);
 };
+const controleMoveUp = function() {
+    const header = document.querySelector(".header");
+    header.scrollIntoView({
+        block: "start",
+        inline: "nearest",
+        behavior: "smooth"
+    });
+};
+const controlModel = function(parentEl) {
+    for (const child of parentEl.children)getComputedStyle(child).display === "none" ? child.style.display = "flex" : child.style.display = "none";
+};
+const controlModelVisable = function(parentEl) {
+    parentEl.classList.remove("hidden");
+};
+const controlModelUnvisible = function(parentEl) {
+    parentEl.classList.add("hidden");
+};
 const init = function() {
     (0, _modeViewDefault.default).addHandlerMode(controlMode);
+    (0, _moveViewDefault.default).addHandlerMoveUp(controleMoveUp);
+    (0, _modelViewDefault.default).addHandlerModel(controlModel);
+    (0, _modelViewDefault.default).addHandlerModelVisability(controlModelVisable, controlModelUnvisible);
 };
 init();
 
-},{"./views/modeView":"cDE3a","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cDE3a":[function(require,module,exports) {
+},{"./views/modeView":"cDE3a","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./views/moveView":"1IcxO","./views/ModelView":"9Opfi"}],"cDE3a":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 class ModeView {
@@ -617,6 +642,52 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}]},["9kCas","CE27q"], "CE27q", "parcelRequire2041")
+},{}],"1IcxO":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+class MoveView {
+    _element = document.querySelector(".btn-arrow-up");
+    addHandlerMoveUp(handler) {
+        this._element.addEventListener("click", handler);
+    }
+}
+exports.default = new MoveView();
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9Opfi":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+class ModelView {
+    _parentElement = document.querySelector(".model");
+    _exitBtn = document.querySelector(".btn-exit");
+    _openBtn = document.querySelector(".btn-open");
+    _header = document.querySelector(".nav");
+    addHandlerModel(handler1) {
+        const parentEl = this._parentElement;
+        const openBtn = this._openBtn;
+        const exitBtn = this._exitBtn;
+        [
+            exitBtn,
+            openBtn
+        ].forEach((btn)=>btn.addEventListener("click", function() {
+                handler1(parentEl);
+            }));
+    }
+    addHandlerModelVisability(handler1, handler2) {
+        const parentEl = this._parentElement;
+        const callback = function(entries) {
+            const [entry] = entries;
+            entry.isIntersecting ? handler2(parentEl) : handler1(parentEl);
+        };
+        const options = {
+            root: null,
+            threshold: 0
+        };
+        const observer = new IntersectionObserver(callback, options);
+        observer.observe(this._header);
+    }
+}
+exports.default = new ModelView();
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["9kCas","CE27q"], "CE27q", "parcelRequire2041")
 
 //# sourceMappingURL=index.0ddfc6e7.js.map
