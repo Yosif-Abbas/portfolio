@@ -346,6 +346,7 @@ header,
         align-items: center;
         margin: 0 auto;
         max-width: 70rem;
+        min-width: 75%;
 
         & .projects_tab-container {
           display: flex;
@@ -372,6 +373,7 @@ header,
           border-radius: 3px;
           min-height: 17.5em;
           z-index: 2;
+          width: 100%;
 
           & .project_header {
             & a {

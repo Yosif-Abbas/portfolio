@@ -566,6 +566,8 @@ var _modelView = require("./views/ModelView");
 var _modelViewDefault = parcelHelpers.interopDefault(_modelView);
 var _sliderView = require("./views/sliderView");
 var _sliderViewDefault = parcelHelpers.interopDefault(_sliderView);
+var _tabModelView = require("./views/tabModelView");
+var _tabModelViewDefault = parcelHelpers.interopDefault(_tabModelView);
 if (module.hot) module.hot.accept();
 const controlMode = function() {
     const root = document.documentElement;
@@ -598,16 +600,24 @@ const controlModelUnvisible = function(parentEl) {
 const controlSlide = function(slides, slideNumber) {
     slides.forEach((slide, i)=>slide.style.transform = `translateX(${(i + slideNumber) * 100}%)`);
 };
+const controlTab = function(tabs, containers, tabEl) {
+    tabs.forEach((tab, i)=>{
+        tab.classList.remove("clicked");
+        containers[i].classList.contains(`projects_content-container--${tabEl.dataset.tab}`) ? containers[i].classList.remove("hidden") : containers[i].classList.add("hidden");
+    });
+    tabEl.classList.add("clicked");
+};
 const init = function() {
     (0, _modeViewDefault.default).addHandlerMode(controlMode);
     (0, _moveViewDefault.default).addHandlerMoveUp(controleMoveUp);
     (0, _modelViewDefault.default).addHandlerModel(controlModel);
     (0, _modelViewDefault.default).addHandlerModelVisability(controlModelVisable, controlModelUnvisible);
     (0, _sliderViewDefault.default).addHanlderSlide(controlSlide);
+    (0, _tabModelViewDefault.default).addHandlerTab(controlTab);
 };
 init();
 
-},{"./views/modeView":"cDE3a","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./views/moveView":"1IcxO","./views/ModelView":"9Opfi","./views/sliderView":"6k9r9"}],"cDE3a":[function(require,module,exports) {
+},{"./views/modeView":"cDE3a","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./views/moveView":"1IcxO","./views/ModelView":"9Opfi","./views/sliderView":"6k9r9","./views/tabModelView":"lvJWr"}],"cDE3a":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 class ModeView {
@@ -726,6 +736,26 @@ class SliderView {
     }
 }
 exports.default = new SliderView();
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lvJWr":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+class TabModelView {
+    _parentElement = document.querySelector(".projects_container");
+    _tabContainer = document.querySelector(".projects_tab-container");
+    _tabs = document.querySelectorAll(".projects_tab");
+    _contentContainers = document.querySelectorAll(".projects_content-container");
+    addHandlerTab(handler) {
+        const that = this;
+        this._tabContainer.addEventListener("click", function(e) {
+            const tab = e.target.closest(".projects_tab");
+            if (!tab) return;
+            handler(that._tabs, that._contentContainers, tab);
+        });
+    }
+    _interactiveContainer(tabNumber) {}
+}
+exports.default = new TabModelView();
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["9kCas","CE27q"], "CE27q", "parcelRequire2041")
 

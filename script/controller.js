@@ -2,6 +2,7 @@ import modeView from './views/modeView';
 import moveView from './views/moveView';
 import ModelView from './views/ModelView';
 import sliderView from './views/sliderView';
+import tabModelView from './views/tabModelView';
 
 if (module.hot) {
   module.hot.accept();
@@ -53,6 +54,18 @@ const controlSlide = function (slides, slideNumber) {
   );
 };
 
+const controlTab = function (tabs, containers, tabEl) {
+  tabs.forEach((tab, i) => {
+    tab.classList.remove('clicked');
+    containers[i].classList.contains(
+      `projects_content-container--${tabEl.dataset.tab}`
+    )
+      ? containers[i].classList.remove('hidden')
+      : containers[i].classList.add('hidden');
+  });
+  tabEl.classList.add('clicked');
+};
+
 const init = function () {
   modeView.addHandlerMode(controlMode);
   moveView.addHandlerMoveUp(controleMoveUp);
@@ -62,6 +75,7 @@ const init = function () {
     controlModelUnvisible
   );
   sliderView.addHanlderSlide(controlSlide);
+  tabModelView.addHandlerTab(controlTab);
 };
 
 init();
