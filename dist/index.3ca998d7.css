@@ -190,23 +190,33 @@ h1, header, .project_header a {
   right: -5%;
 }
 
-.main .about .wrapper .about_container .about_sec {
+.main .about .wrapper .about_container .slides {
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+
+.main .about .wrapper .about_container .slides .about_sec {
   width: 100%;
   position: absolute;
 }
 
-.main .about .wrapper .about_container .about_sec .sec_header {
+.main .about .wrapper .about_container .slides .about_sec .sec_header {
   letter-spacing: 6px;
-  padding-left: 56px;
+  padding-left: 24px;
   font-size: 2rem;
 }
 
-.main .about .wrapper .about_container .about_sec .sec_container {
+.main .about .wrapper .about_container .slides .about_sec .sec_container {
   padding: .75rem 1rem;
   font-size: 2rem;
 }
 
-.main .about .wrapper .about_container .about_sec .sec_container a {
+.main .about .wrapper .about_container .slides .about_sec .sec_container a {
   color: var(--dark);
   font-style: italic;
   text-decoration: underline;
@@ -403,7 +413,7 @@ h1, header, .project_header a {
   min-height: 45px;
   justify-content: center;
   align-items: center;
-  display: none;
+  display: flex;
 }
 
 .model-float .btn-open .bi-plus {
@@ -411,7 +421,7 @@ h1, header, .project_header a {
   height: 32px;
 }
 
-.hidden {
+.model-float .hidden, .hidden {
   display: none;
 }
 
@@ -553,6 +563,10 @@ h1, header, .project_header a {
 
   .main .about .about_sec .sec_header {
     padding: 0;
+  }
+
+  .main .about .hidden {
+    display: none;
   }
 
   .model-float {

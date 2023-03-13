@@ -20,6 +20,7 @@ class ModelView {
     const callback = function (entries) {
       const [entry] = entries;
       entry.isIntersecting ? handler2(parentEl) : handler1(parentEl);
+      
     };
 
     const options = {

@@ -564,6 +564,8 @@ var _moveView = require("./views/moveView");
 var _moveViewDefault = parcelHelpers.interopDefault(_moveView);
 var _modelView = require("./views/ModelView");
 var _modelViewDefault = parcelHelpers.interopDefault(_modelView);
+var _sliderView = require("./views/sliderView");
+var _sliderViewDefault = parcelHelpers.interopDefault(_sliderView);
 if (module.hot) module.hot.accept();
 const controlMode = function() {
     const root = document.documentElement;
@@ -585,7 +587,7 @@ const controleMoveUp = function() {
     });
 };
 const controlModel = function(parentEl) {
-    for (const child of parentEl.children)getComputedStyle(child).display === "none" ? child.style.display = "flex" : child.style.display = "none";
+    for (const child of parentEl.children)child.classList.contains("hidden") ? child.classList.remove("hidden") : child.classList.add("hidden");
 };
 const controlModelVisable = function(parentEl) {
     parentEl.classList.remove("hidden");
@@ -593,15 +595,19 @@ const controlModelVisable = function(parentEl) {
 const controlModelUnvisible = function(parentEl) {
     parentEl.classList.add("hidden");
 };
+const controlSlide = function(slides, slideNumber) {
+    slides.forEach((slide, i)=>slide.style.transform = `translateX(${(i + slideNumber) * 100}%)`);
+};
 const init = function() {
     (0, _modeViewDefault.default).addHandlerMode(controlMode);
     (0, _moveViewDefault.default).addHandlerMoveUp(controleMoveUp);
     (0, _modelViewDefault.default).addHandlerModel(controlModel);
     (0, _modelViewDefault.default).addHandlerModelVisability(controlModelVisable, controlModelUnvisible);
+    (0, _sliderViewDefault.default).addHanlderSlide(controlSlide);
 };
 init();
 
-},{"./views/modeView":"cDE3a","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./views/moveView":"1IcxO","./views/ModelView":"9Opfi"}],"cDE3a":[function(require,module,exports) {
+},{"./views/modeView":"cDE3a","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./views/moveView":"1IcxO","./views/ModelView":"9Opfi","./views/sliderView":"6k9r9"}],"cDE3a":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 class ModeView {
@@ -687,6 +693,39 @@ class ModelView {
     }
 }
 exports.default = new ModelView();
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6k9r9":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+class SliderView {
+    _parentElement = document.querySelector(".about_container");
+    _buttonRight = document.querySelector(".btn_right");
+    _buttonLeft = document.querySelector(".btn_left");
+    _slideNumber = 0;
+    _slideMax;
+    addHanlderSlide(handler) {
+        const slides = this._parentElement.querySelectorAll(".about_sec");
+        this._slideMax = (slides.length - 1) * -1;
+        handler(slides, 0);
+        this._addHandlerSlideRight(handler, slides);
+        this._addHandlerSlideLeft(handler, slides);
+    }
+    _addHandlerSlideRight(handler, slides) {
+        const that = this;
+        this._buttonRight.addEventListener("click", function() {
+            that._slideMax >= that._slideNumber ? that._slideNumber = 0 : that._slideNumber--;
+            handler(slides, that._slideNumber);
+        });
+    }
+    _addHandlerSlideLeft(handler, slides) {
+        const that = this;
+        this._buttonLeft.addEventListener("click", function() {
+            0 <= that._slideNumber ? that._slideNumber = that._slideMax : that._slideNumber++;
+            handler(slides, that._slideNumber);
+        });
+    }
+}
+exports.default = new SliderView();
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["9kCas","CE27q"], "CE27q", "parcelRequire2041")
 

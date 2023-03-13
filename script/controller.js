@@ -1,6 +1,7 @@
 import modeView from './views/modeView';
 import moveView from './views/moveView';
 import ModelView from './views/ModelView';
+import sliderView from './views/sliderView';
 
 if (module.hot) {
   module.hot.accept();
@@ -31,9 +32,9 @@ const controleMoveUp = function () {
 
 const controlModel = function (parentEl) {
   for (const child of parentEl.children) {
-    getComputedStyle(child).display === 'none'
-      ? (child.style.display = 'flex')
-      : (child.style.display = 'none');
+    child.classList.contains('hidden')
+      ? child.classList.remove('hidden')
+      : child.classList.add('hidden');
   }
 };
 
@@ -45,6 +46,13 @@ const controlModelUnvisible = function (parentEl) {
   parentEl.classList.add('hidden');
 };
 
+const controlSlide = function (slides, slideNumber) {
+  slides.forEach(
+    (slide, i) =>
+      (slide.style.transform = `translateX(${(i + slideNumber) * 100}%)`)
+  );
+};
+
 const init = function () {
   modeView.addHandlerMode(controlMode);
   moveView.addHandlerMoveUp(controleMoveUp);
@@ -53,6 +61,7 @@ const init = function () {
     controlModelVisable,
     controlModelUnvisible
   );
+  sliderView.addHanlderSlide(controlSlide);
 };
 
 init();
